@@ -4,7 +4,9 @@ import { reducer as formReducer } from 'redux-form';
 
 import * as actions from '../actions/install';
 import toasts from './toasts';
-import { ALL_INTERFACES_IP, INSTALL_FIRST_STEP, STANDARD_DNS_PORT } from '../helpers/constants';
+import {
+    ALL_INTERFACES_IP, INSTALL_FIRST_STEP, STANDARD_DNS_PORT, STANDARD_WEB_PORT,
+} from '../helpers/constants';
 
 const install = handleActions({
     [actions.getDefaultAddressesRequest]: (state) => ({ ...state, processingDefault: true }),
@@ -46,7 +48,7 @@ const install = handleActions({
     processingCheck: false,
     web: {
         ip: ALL_INTERFACES_IP,
-        port: 80,
+        port: STANDARD_WEB_PORT,
         status: '',
         can_autofix: false,
     },

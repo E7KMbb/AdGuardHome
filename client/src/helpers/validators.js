@@ -1,5 +1,6 @@
 import i18next from 'i18next';
 import {
+    MAX_PORT,
     R_CIDR,
     R_CIDR_IPV6,
     R_HOST,
@@ -7,10 +8,10 @@ import {
     R_IPV6,
     R_MAC,
     R_URL_REQUIRES_PROTOCOL,
+    STANDARD_WEB_PORT,
     UNSAFE_PORTS,
 } from './constants';
 import { getLastIpv4Octet, isValidAbsolutePath } from './form';
-
 
 // Validation functions
 // https://redux-form.com/8.3.0/examples/fieldlevelvalidation/
@@ -33,11 +34,10 @@ export const validateRequiredValue = (value) => {
  */
 export const getMaxValueValidator = (maximum) => (value) => {
     if (value && value > maximum) {
-        i18next.t('value_not_larger_than', { maximum });
+        return i18next.t('value_not_larger_than', { maximum });
     }
     return undefined;
 };
-
 
 /**
  * @param value {string}
@@ -79,10 +79,10 @@ export const validateClientId = (value) => {
     const formattedValue = value ? value.trim() : value;
     if (formattedValue && !(
         R_IPV4.test(formattedValue)
-        || R_IPV6.test(formattedValue)
-        || R_MAC.test(formattedValue)
-        || R_CIDR.test(formattedValue)
-        || R_CIDR_IPV6.test(formattedValue)
+            || R_IPV6.test(formattedValue)
+            || R_MAC.test(formattedValue)
+            || R_CIDR.test(formattedValue)
+            || R_CIDR_IPV6.test(formattedValue)
     )) {
         return 'form_error_client_id_format';
     }
@@ -123,7 +123,7 @@ export const validateMac = (value) => {
 };
 
 /**
- * @param value {string}
+ * @param value {number}
  * @returns {undefined|string}
  */
 export const validateIsPositiveValue = (value) => {
@@ -134,7 +134,7 @@ export const validateIsPositiveValue = (value) => {
 };
 
 /**
- * @param value {string}
+ * @param value {number}
  * @returns {boolean|*}
  */
 export const validateBiggerOrEqualZeroValue = (value) => {
@@ -145,43 +145,43 @@ export const validateBiggerOrEqualZeroValue = (value) => {
 };
 
 /**
- * @param value {string}
+ * @param value {number}
  * @returns {undefined|string}
  */
 export const validatePort = (value) => {
-    if ((value || value === 0) && (value < 80 || value > 65535)) {
+    if ((value || value === 0) && (value < STANDARD_WEB_PORT || value > MAX_PORT)) {
         return 'form_error_port_range';
     }
     return undefined;
 };
 
 /**
- * @param value {string}
+ * @param value {number}
  * @returns {undefined|string}
  */
 export const validateInstallPort = (value) => {
-    if (value < 1 || value > 65535) {
+    if (value < 1 || value > MAX_PORT) {
         return 'form_error_port';
     }
     return undefined;
 };
 
 /**
- * @param value {string}
+ * @param value {number}
  * @returns {undefined|string}
  */
 export const validatePortTLS = (value) => {
     if (value === 0) {
         return undefined;
     }
-    if (value && (value < 80 || value > 65535)) {
+    if (value && (value < STANDARD_WEB_PORT || value > MAX_PORT)) {
         return 'form_error_port_range';
     }
     return undefined;
 };
 
 /**
- * @param value {string}
+ * @param value {number}
  * @returns {undefined|string}
  */
 export const validateIsSafePort = (value) => {

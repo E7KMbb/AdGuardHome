@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions';
 import * as actions from '../actions';
 import { areEqualVersions } from '../helpers/version';
-import { STANDARD_DNS_PORT } from '../helpers/constants';
+import { STANDARD_DNS_PORT, STANDARD_WEB_PORT } from '../helpers/constants';
 
 const dashboard = handleActions(
     {
@@ -160,7 +160,7 @@ const dashboard = handleActions(
         processingProfile: true,
         protectionEnabled: false,
         processingProtection: false,
-        httpPort: 80,
+        httpPort: STANDARD_WEB_PORT,
         dnsPort: STANDARD_DNS_PORT,
         dnsAddresses: [],
         dnsVersion: '',

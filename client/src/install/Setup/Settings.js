@@ -16,6 +16,7 @@ import {
     PORT_53_FAQ_LINK,
     STATUS_RESPONSE,
     STANDARD_DNS_PORT,
+    STANDARD_WEB_PORT,
 } from '../../helpers/constants';
 import { renderInputField, toNumber } from '../../helpers/form';
 import { validateRequiredValue, validateInstallPort } from '../../helpers/validators';
@@ -207,7 +208,7 @@ class Settings extends Component {
                                     component={renderInputField}
                                     type="number"
                                     className="form-control"
-                                    placeholder="80"
+                                    placeholder={STANDARD_WEB_PORT.toString()}
                                     validate={[validateInstallPort, validateRequiredValue]}
                                     normalize={toNumber}
                                     onChange={handleChange}
@@ -275,7 +276,7 @@ class Settings extends Component {
                                     component={renderInputField}
                                     type="number"
                                     className="form-control"
-                                    placeholder="80"
+                                    placeholder={STANDARD_WEB_PORT.toString()}
                                     validate={[validateInstallPort, validateRequiredValue]}
                                     normalize={toNumber}
                                     onChange={handleChange}
